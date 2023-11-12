@@ -11,17 +11,17 @@
         dest: /etc/nginx/default.d/expense.conf
     - name: clean old Nginx Dir content
       ansible.builtin.file:
-        path:/usr/share/nginx/html/
-        state:absent
-    - name: clean old Nginx Dir content
+        path: /usr/share/nginx/html/
+        state: absent
+    - name: Creating Nginx Dir content
       ansible.builtin.file:
-        path:/usr/share/nginx/html/
-        state:directory
+        path: /usr/share/nginx/html/
+        state: directory
     - name: download and extract frontend content
       ansible.builtin.unarchive:
-        src:https://expense-artifacts.s3.amazonaws.com/frontend.zip
-        dest:/usr/share/nginx/html
-        remote_source:yes
+        src: https://expense-artifacts.s3.amazonaws.com/frontend.zip
+        dest: /usr/share/nginx/html
+        remote_source: yes
     - name: start Nginx service
       ansible.builtin.systemd:
         name: nginx
