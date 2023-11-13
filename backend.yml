@@ -10,7 +10,8 @@
       ansible.builtin.dnf:
         name: nodejs
         state: present
-    - name: Copying the backend file
+    - name: Copying the Backend service file
+      ansible.builtin.copy:
       src: backend.service
       dest: /etc/systemd/system/backend.service
     - name: add application user
