@@ -8,7 +8,7 @@
       ansible.builtin.shell: dnf module enable nodejs -y
     - name: Installing the Node JS
       ansible.builtin.shell: dnf install nodejs -y
-    - name: Copying the backend.service file
+    - name: Copying the backend file
       src: backend.service
       dest: /etc/systemd/system/backend.service
     - name: add application user
