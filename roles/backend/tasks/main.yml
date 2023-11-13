@@ -1,15 +1,19 @@
 - name: Disable the nodeJs Version
   ansible.builtin.shell: dnf module disable nodejs -y
+
 - name: Enable the nodeJs Version
   ansible.builtin.shell: dnf module enable nodejs:18 -y
+
 - name: Installing the Node JS
   ansible.builtin.dnf:
     name: nodejs
     state: present
+
 - name: Copying the Backend service file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: backend.service
     dest: /etc/systemd/system/backend.service
+
 - name: add application user
   ansible.builtin.user:
     name: expense
@@ -26,12 +30,15 @@
   ansible.builtin.shell: npm install
   args:
     chdir: /app
+
 - name: Install MySQL Client
   ansible.builtin.dnf:
     name: mysql
     state: present
+
 - name: Load Schema
   ansible.builtin.shell: mysql -h mysql-{{env}}.dba2devops.online -uroot -p{{MY_SQL_ROOT_PASSWORD}} < /app/schema/backend.sql
+
 - name: Start Backend Service
   ansible.builtin.systemd:
     name: backend
